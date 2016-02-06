@@ -1,0 +1,50 @@
+Detailed Design - Honey Pot
+
+HoneyPotLauncher
+__init__():
+    when the honey pot begins, look for the plug-ins that are setup to begin
+shutdown():
+    when the honey pot shuts down, shut down every plug-in that was begun when the honey pot started
+
+Standard Plug-in 
+__init__():
+    return boolean true if it was successfully started, false if there was an error
+    begin the plug in to listen on the specified port
+listen():
+    initiate threads to listen upon the port that it had initiated upon, respond accordingly when contact is initiated:
+        http: respond with Error 404 - Page not found
+        telnet: open connection, closing connection
+        ssh: prompt for username/password, respond with failure to login, close connection
+    record information from source into database, information to record
+        source IP address
+        port attempted to contact
+        method of contact attempt (http, telnet, ssh, ...)
+        date/time of contact attempt
+shutdown():
+    return boolean true if it was successfully closed, false if there was error
+    close out every thread that  has been initiated, close open ports
+
+Database
+used to record all information acquired from honey pot plug-ins
+
+JSon Translator / Database accessor
+__init__():
+    return boolean true if successfully setup,  false if there was an error
+    initialize the database accessor and JSon translator to listen for promptings from the initialized port/IP address 
+record(Information to record in schema):
+    record information passed into method into the database
+accessor(data type requested):
+    create threads to listen for access requests to the database, and respond
+        receive incoming JSon request
+        translate to database commands
+        receive information from translated commands
+        translate information to JSon 
+        send information back to the requestor translated back into JSon
+shutdown()
+    return boolean true if successfully setup, false if there was an error
+    close down database accessor and JSon translator
+
+Freeboard Widget
+allow sender to initiate requests, possible methods
+    constantly updating display of information
+    submission for requested information / selection of available options to display upon the widget

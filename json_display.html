@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Create Javascript Object from JSON</h2>
+
+<p id="demo"></p>
+
+<script>
+var json_data = '{"_id":{"$oid":"56d8acccc37126119795643a"},"Client":{"IP":"127.0.0.1","Data":{"Username":"daemoniclegend","Passwords":"\u003cnull\u003e fdu \u003cnull\u003e ","Key":"db4b34da8ca65f0425809f82aa185d1e","Time":"14:29:43.284630"},"Port":"22"}}'
+
+json_obj = JSON.parse(json_data);
+
+document.getElementById("demo").innerHTML = 
+    '<table><tr><td>ID</td><td>IP Address</td><td>Username</td><td>Password</td><td>Key<td>' +
+    '<td>Time</td><td>Port<td></tr>' +
+    '<tr><td>' + json_obj._id + '</td><td>' + json_obj.Client.IP + '</td><td>' + 
+    json_obj.Client.Data.Username + '</td><td>' + json_obj.Client.Data.Passwords + 
+    '</td><td>' + json_obj.Client.Data.Key + '</td><td>' + json_obj.Client.Data.Time + 
+    '</td><td>' + json_obj.Port + '</td><tr></table>'; 
+</script>
+</body>
+</html>

@@ -2,13 +2,14 @@ Detailed Design - Honey Pot
 
 HoneyPotLauncher
 __init__():
-    when the honey pot begins, look for the plug-ins that are setup to begin
+    when the honey pot begins, look for the plug-ins that are setup to begin, upon the ports they are set with
 shutdown():
-    when the honey pot shuts down, shut down every plug-in that was begun when the honey pot started
+    when the honey pot shuts down, shut down every plug-in that was begun when the honey pot started, accomodate a forced closure from the keyboard (ie: Ctrl-C)
 
 Standard Plug-in 
 __init__():
-    return boolean true if it was successfully started, false if there was an error
+    accomodate errors in the creation process
+    (future capability) send back information about the error to be handled in the loader
     begin the plug in to listen on the specified port
 listen():
     initiate threads to listen upon the port that it had initiated upon, respond accordingly when contact is initiated:
@@ -21,7 +22,8 @@ listen():
         method of contact attempt (http, telnet, ssh, ...)
         date/time of contact attempt
 shutdown():
-    return boolean true if it was successfully closed, false if there was error
+    accomodate errors in the shut down process
+    (future capability) send back information about the error to be handled in the loader
     close out every thread that  has been initiated, close open ports
 
 Database
@@ -29,7 +31,6 @@ used to record all information acquired from honey pot plug-ins
 
 JSon Translator / Database accessor
 __init__():
-    return boolean true if successfully setup,  false if there was an error
     initialize the database accessor and JSon translator to listen for promptings from the initialized port/IP address 
 record(Information to record in schema):
     record information passed into method into the database
@@ -41,10 +42,7 @@ accessor(data type requested):
         translate information to JSon 
         send information back to the requestor translated back into JSon
 shutdown()
-    return boolean true if successfully setup, false if there was an error
     close down database accessor and JSon translator
 
-Freeboard Widget
-allow sender to initiate requests, possible methods
-    constantly updating display of information
-    submission for requested information / selection of available options to display upon the widget
+Database Interface
+    display list of access attempts, displaying the various recorded data
